@@ -18,7 +18,7 @@ with st.form('triage'):
         format_func=lambda x: 'Yes' if x else 'No',
         index=1,
     )
-    floaters = st.radio(
+    blur = st.radio(
         'Ignoring your floater(s), have you experienced blurred vision? If so, how would you characterize it?',
         ['None', 'Intermittent', 'Constant']
     )
@@ -69,16 +69,10 @@ with st.form('triage'):
         else:
             points['timing = 1']
 
-        if curtain:
-            if floaters == 'None':
-                points['curtain/floaters'] = 1
-            else:
-                points['curtain/floaters'] = 14
+        if curtain or blur == 'Constant':
+            points['curtain/blur'] = 14
         else:
-            if floaters == 'Constant':
-                points['curtains/floaters'] = 14
-            else:
-                points['curtain/floaters'] = 1
+            points['curtain/blur'] = 1
 
         total = sum(points.values())
         st.write(f'### Risk Score: {total}')
