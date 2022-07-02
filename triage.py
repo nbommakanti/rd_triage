@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+    page_title='Retinal Tear or Detachment Phone Triage Calculator',
+    menu_items={
+        'Get help':None, 
+        'Report a Bug': None, 
+        'About': 'This calculator is for research purposes only and does not constitute medical advice.'
+    }
+)
+
 st.write('# RD / RT Phone Triage')
 
 with st.form('triage'):
@@ -22,7 +31,6 @@ with st.form('triage'):
         'Ignoring your floater(s), have you experienced blurred vision? If so, how would you characterize it?',
         ['None', 'Intermittent', 'Constant']
     )
-
     myopia = st.radio(
         label='When you were a young adult (before any procedures to your affected eye), did you need glasses to see to drive?',
         options=[True, False],
@@ -46,10 +54,7 @@ with st.form('triage'):
         options=[True, False],
         format_func=lambda x: 'Yes' if x else 'No',
         index=1,
-
     )
-
-    # Every form must have a submit button.
     submitted = st.form_submit_button('Submit')
     if submitted:
         ## --- Calculate risk score --- ##
@@ -79,7 +84,6 @@ with st.form('triage'):
         st.write('### Recommendation: ***')
         st.markdown('*For testing, let\'s see the score breakdown*')
         st.write(points)
-
 
 df = pd.DataFrame({
     'Cutoff Score':[17, 20, 23, 26, 29, 32, 35, 38, 41, 44],
