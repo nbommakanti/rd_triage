@@ -1,6 +1,15 @@
 import streamlit as st
 import pandas as pd
 
+st.set_page_config(
+    page_title='Retinal Tear or Detachment Phone Triage Calculator',
+    menu_items={
+        'Get help':None, 
+        'Report a Bug': None, 
+        'About': 'This calculator is for research purposes only and does not constitute medical advice.'
+    }
+)
+
 st.write('# RD / RT Phone Triage')
 
 with st.form('triage'):
