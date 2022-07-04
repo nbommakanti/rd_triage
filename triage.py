@@ -72,7 +72,7 @@ with st.form('triage'):
         elif timing == 'Between 24 hours and 72 hours ago':
             points['timing'] = 3
         else:
-            points['timing = 1']
+            points['timing'] = 1
 
         if curtain or blur == 'Constant':
             points['curtain/blur'] = 14
