@@ -3,14 +3,15 @@ import pandas as pd
 
 st.set_page_config(
     page_title='Retinal Tear or Detachment Phone Triage Calculator',
-    menu_items={
-        'Get help':None, 
-        'Report a Bug': None, 
-        'About': 'This calculator is for research purposes only and does not constitute medical advice.'
-    }
+    # menu_items={
+    #     'Get help':None, 
+    #     'Report a Bug': None, 
+    #     'About': 'This calculator is for research purposes only and does not constitute medical advice.'
+    # },
+    initial_sidebar_state='collapsed'
 )
 
-st.write('# RD / RT Phone Triage')
+st.title('RD / RT Phone Triage')
 
 with st.form('triage'):
     eye = st.radio(
@@ -80,14 +81,31 @@ with st.form('triage'):
             points['curtain/blur'] = 1
 
         total = sum(points.values())
+        
         st.write(f'### Risk Score: {total}')
         st.write('### Recommendation: ***')
         st.markdown('*For testing, let\'s see the score breakdown*')
         st.write(points)
 
+# Display risk score table
 df = pd.DataFrame({
     'Cutoff Score':[17, 20, 23, 26, 29, 32, 35, 38, 41, 44],
     'Percent -RT/RD Included':['64.80%', '53.07%', '46.37%', '35.75%', '27.37%', '16.20%', '8.94%', '5.59%', '3.91%', '1.12%'],
     'Percent +RT/RD Included': ['100.00%', '100.00%', '92.86%', '92.86%', '92.86%', '85.71%', '64.29%', '57.14%', '35.71%', '35.71%']
 })
 st.table(df)
+
+# Disclaimer
+with st.sidebar:
+    st.write('# Disclaimer')
+    st.write('This calculator is for research purposes only and does not constitute medical advice.')
+
+# Hide unnecessary elements
+hide_st_style = """
+            <style>
+            MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
